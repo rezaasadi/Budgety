@@ -1,0 +1,18 @@
+replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+
+
+Like the comments, reading about regular expressions(http://www.regular-expressions.info/) would be the most beneficial for you (in the long run). Breaking down this specific Regular Expression is as such:
+
+1) The \B tells it to look only within a word boundary (meaning it can't be part of another type of word - it can't be b123412b123, but only accept what it finds if it stands alone - 123456, a 123456 w
+
+2) Then a lookahead (?= tells it to find whatever is in the group (until it reaches the matching closing parenthesis) and only return if it is found as a whole, it is also making sure the replacement is done in reverse because it is looking as far ahead as to the end of the string.
+
+3) ?: tells it to look for the following match but not create a backreference (a term in regular expressions)
+
+4) \d{3} looks for 3 digits in a row.
+
+5) Then the + afterwards marks that the 3 digits (wrapped in parentheses to make sure the rule is treated as one block like so - (\d{3})+) pattern can repeat (3 digits, 6, 9, etc).
+
+6) The last (?!\d) looks for yet another digit but excluding it, making sure the digits are in groups of 3 and not followed by digits that are not in groups of 3.
+
+So basically it looks for 1 or more groups of 3 digits, telling the RegEx not to return the matched digits (because they're ignored with ?:) therefore returning only the part of the match that's not nothing - it's returning \B, and that's what's being replaced. So effectively it only replaces full groups of 3, starting from the end of the string, causing it to turn 3333333 into 3,333,333.
