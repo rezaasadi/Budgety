@@ -1,0 +1,2 @@
+# Budgety
+Modular JavaScript App
