@@ -1,4 +1,4 @@
-# Budgety
+# NewBudget
 Modular JavaScript App
 
 
